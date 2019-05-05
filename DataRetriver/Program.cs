@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using DataRetriverDLL;
 
 namespace DataRetriever
@@ -8,12 +9,15 @@ namespace DataRetriever
     {
         static void Main(string[] args)
         {
+            var timer = new Timer(TimerCallback, null, 0, 20000);
+            Console.ReadLine();
+        }
+
+        private static void TimerCallback(object o)
+        {
             var dataReader = new WebsiteDataReader();
             var jobs = dataReader.GetDataFromWebsite().ToList();
-
             jobs.ForEach(DataSender.SendData);
-
-            Console.ReadLine();
         }
 
     }

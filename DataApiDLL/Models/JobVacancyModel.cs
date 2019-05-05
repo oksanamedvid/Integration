@@ -1,6 +1,6 @@
-﻿namespace DateReceiver
+﻿namespace DataApiDLL.Models
 {
-    public class JobVacancy
+    public class JobVacancyModel
     {
         public string Title { get; set; }
         public string VacancyUrl { get; set; }
