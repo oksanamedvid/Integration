@@ -45,6 +45,16 @@ namespace DataApi
             services.AddSingleton<JobInputType>();
             var sp = services.BuildServiceProvider();
             services.AddSingleton<ISchema>(new NhlStatsSchema(new FuncDependencyResolver(type => sp.GetService(type))));
+
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = "127.0.0.1";
+                option.InstanceName = "master";
+            });
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,8 +71,11 @@ namespace DataApi
 
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-           // app.UseGraphiQl();
+
             app.UseMvc();
+            app.UseCors(options => options.AllowAnyOrigin());
+
+
         }
     }
 }

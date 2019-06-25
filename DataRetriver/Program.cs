@@ -9,7 +9,7 @@ namespace DataRetriever
     {
         static void Main(string[] args)
         {
-            var timer = new Timer(TimerCallback, null, 0, 20000);
+            var timer = new Timer(TimerCallback, null, 0, TimeSpan.FromMinutes(30).Milliseconds);
             Console.ReadLine();
         }
 

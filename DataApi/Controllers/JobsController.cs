@@ -4,6 +4,7 @@ using DataApi.Models;
 using GraphQL;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace DataApi.Controllers
 {
@@ -12,11 +13,13 @@ namespace DataApi.Controllers
     {
         private readonly IDocumentExecuter _documentExecuter;
         private readonly ISchema _schema;
+        private readonly IDistributedCache _distributedCache;
 
-        public JobsController(ISchema schema, IDocumentExecuter documentExecuter)
+        public JobsController(ISchema schema, IDocumentExecuter documentExecuter, IDistributedCache distributedCache)
         {
             _schema = schema;
             _documentExecuter = documentExecuter;
+            _distributedCache = distributedCache;
         }
 
         [HttpPost]
